@@ -10,6 +10,7 @@
 #include <Arduino_MQTT_Client.h>
 #include <Server_Side_RPC.h>
 #include <ThingsBoard.h>
+#include <DHT20.h>
 
 
 // Whether the given script is using encryption or not,
@@ -201,9 +202,12 @@ void processSwitchChange(const JsonVariantConst &data, JsonDocument &response) {
   response.set(22.02);
 }
 
+DHT20 sensor(&Wire1);
+
 void setup() {
   // Initalize serial connection for debugging
   Serial.begin(SERIAL_DEBUG_BAUD);
+  Wire1.begin(12, 13);
   // delay(1000);
   // InitWiFi();
 }
