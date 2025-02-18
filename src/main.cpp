@@ -204,14 +204,14 @@ void processSwitchChange(const JsonVariantConst &data, JsonDocument &response) {
 void setup() {
   // Initalize serial connection for debugging
   Serial.begin(SERIAL_DEBUG_BAUD);
-  delay(1000);
-  InitWiFi();
+  // delay(1000);
+  // InitWiFi();
 }
 
 void loop() {
   delay(1000);
 
-  if (!reconnect()) {
+  /* if (!reconnect()) {
     return;
   }
 
@@ -247,5 +247,5 @@ void loop() {
     subscribed = true;
   }
 
-  tb.loop();
+  tb.loop(); */
 }
