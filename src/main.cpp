@@ -44,7 +44,7 @@ constexpr uint16_t MAX_MESSAGE_RECEIVE_SIZE = 256U;
 
 // Baud rate for the debugging serial connection.
 // If the Serial output is mangled, ensure to change the monitor speed accordingly to this variable
-constexpr uint32_t SERIAL_DEBUG_BAUD = 9600U;
+constexpr uint32_t SERIAL_DEBUG_BAUD = 115200U;
 
 #if ENCRYPTED
 // See https://comodosslstore.com/resources/what-is-a-root-ca-certificate-and-how-do-i-download-it/
