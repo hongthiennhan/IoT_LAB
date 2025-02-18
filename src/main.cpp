@@ -20,12 +20,12 @@
 #define ENCRYPTED false
 
 
-constexpr char WIFI_SSID[] = "RD-SEAI_2.4G";
-constexpr char WIFI_PASSWORD[] = "YOUR_WIFI_PASSWORD";
+constexpr char WIFI_SSID[] = "nhatvu";
+constexpr char WIFI_PASSWORD[] = "25122003";
 
 // See https://thingsboard.io/docs/getting-started-guides/helloworld/
 // to understand how to obtain an access token
-constexpr char TOKEN[] = "wipfx1rt8orrlpte60p2";
+constexpr char TOKEN[] = "vkro43vom3n5p5js6ftl";
 
 // Thingsboard we want to establish a connection too
 constexpr char THINGSBOARD_SERVER[] = "app.coreiot.io";
@@ -119,7 +119,7 @@ bool subscribed = false;
 void InitWiFi() {
   Serial.println("Connecting to AP ...");
   // Attempting to establish a connection to the given WiFi network
-  WiFi.begin(WIFI_SSID);
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   while (WiFi.status() != WL_CONNECTED) {
     // Delay 500ms until a connection has been successfully established
     delay(500);
@@ -208,19 +208,25 @@ void setup() {
   // Initalize serial connection for debugging
   Serial.begin(SERIAL_DEBUG_BAUD);
   Wire1.begin(GPIO_NUM_21, GPIO_NUM_22);
-  // delay(1000);
-  // InitWiFi();
+  delay(1000);
+  InitWiFi();
 }
 
 void loop() {
   Serial.println("MSSV: 2111900");
   uint8_t status = sensor.read();
+  float temperature = sensor.getTemperature();
+  float humidity = sensor.getHumidity();
+  tb.sendTelemetryData("temperature", temperature);
+  tb.sendTelemetryData("humidity", humidity);
+  tb.sendTelemetryData("long", 106.80633605864662);
+  tb.sendTelemetryData("lat", 10.880018410410052);
   Serial.print(sensor.getHumidity(), 1);
   Serial.print(",\t");
   Serial.println(sensor.getTemperature(), 1);
   delay(1000);
 
-  /* if (!reconnect()) {
+  if (!reconnect()) {
     return;
   }
 
@@ -256,5 +262,7 @@ void loop() {
     subscribed = true;
   }
 
-  tb.loop(); */
+  
+
+  tb.loop();
 }
