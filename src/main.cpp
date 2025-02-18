@@ -214,6 +214,10 @@ void setup() {
 
 void loop() {
   Serial.println("MSSV: 2111900");
+  uint8_t status = sensor.read();
+  Serial.print(sensor.getHumidity(), 1);
+  Serial.print(",\t");
+  Serial.println(sensor.getTemperature(), 1);
   delay(1000);
 
   /* if (!reconnect()) {
