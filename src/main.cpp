@@ -207,7 +207,7 @@ DHT20 sensor(&Wire1);
 void setup() {
   // Initalize serial connection for debugging
   Serial.begin(SERIAL_DEBUG_BAUD);
-  Wire1.begin(GPIO_NUM_11, GPIO_NUM_12);
+  Wire1.begin(GPIO_NUM_21, GPIO_NUM_22);
   // delay(1000);
   // InitWiFi();
 }
