@@ -209,6 +209,7 @@ void setup() {
 }
 
 void loop() {
+  Serial.println("MSSV: 2111900");
   delay(1000);
 
   if (!reconnect()) {
