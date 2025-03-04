@@ -20,8 +20,8 @@
 #define ENCRYPTED false
 
 
-constexpr char WIFI_SSID[] = "nhatvu";
-constexpr char WIFI_PASSWORD[] = "25122003";
+constexpr char WIFI_SSID[] = "ACLAB-IOT";
+constexpr char WIFI_PASSWORD[] = "12345678";
 
 // See https://thingsboard.io/docs/getting-started-guides/helloworld/
 // to understand how to obtain an access token
