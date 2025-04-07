@@ -124,11 +124,9 @@ TaskHandle_t Task_getSampleDHT20_Handle = NULL;
 void Task_getSampleDHT20(void *pvParameters) {
   while (1) {
       if (millis() - dht20.lastRead() >= 5000) {
-          // int status = dht20.read();
-          // temperature = dht20.getTemperature();
-          // humidity = dht20.getHumidity();
-          temperature = 27.0 + static_cast<float>(esp_random() % 400) / 100.0;
-          humidity = 30.0 + static_cast<float>(esp_random() % 4000) / 100.0;
+          int status = dht20.read();
+          temperature = dht20.getTemperature();
+          humidity = dht20.getHumidity();
           Serial.print("Time: ");
           Serial.print(millis() / 1000.0, 2);
           Serial.print(" -> ");
@@ -211,6 +209,7 @@ void Task_checkWifi(void *pvParameters) {
       vTaskDelay(pdMS_TO_TICKS(10000));
   }
 }
+
 TaskHandle_t Task_getLedStatus_Handle = NULL;
 void Task_getLedStatus(void *pvParameters) {
     while (1) {
@@ -233,8 +232,9 @@ void setup() {
     delay(1000);
     InitWiFi();
 
-    // Wire.begin(SDA_PIN, SCL_PIN);
-    // dht20.begin();
+    Wire.begin(SDA_PIN, SCL_PIN);
+    dht20.begin();
+    
     // SCH_Init();
     // // SCH_Add_Task(task1, 300, 200);
     // // SCH_Add_Task(task2, 200, 500);
