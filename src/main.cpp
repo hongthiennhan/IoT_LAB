@@ -20,7 +20,7 @@ uint32_t previousTelemetrySend;
 // Firmware title and version used to compare with remote version, to check if an update is needed.
 // Title needs to be the same and version needs to be different --> downgrading is possible
 constexpr char CURRENT_FIRMWARE_TITLE[] = "OTA_PACKAGE_1";
-constexpr char CURRENT_FIRMWARE_VERSION[] = "1.0";
+constexpr char CURRENT_FIRMWARE_VERSION[] = "1.1";
 // Maximum amount of retries we attempt to download each firmware chunck over MQTT
 constexpr uint8_t FIRMWARE_FAILURE_RETRIES = 12U;
 // Size of each firmware chunck downloaded over MQTT,
@@ -33,6 +33,8 @@ constexpr char TOKEN[] = "I6CQCDQxVfWAU2uezJeZ";
 constexpr char THINGSBOARD_SERVER[] = "app.coreiot.io";
 constexpr char TEMPERATURE_KEY[] = "temperature";
 constexpr char HUMIDITY_KEY[] = "humidity";
+constexpr char WINDSPEED_KEY[] = "windspeed";
+constexpr char RAINFALL_KEY[] = "rainfall";
 constexpr char LONG_KEY[] = "long";
 constexpr char LAT_KEY[] = "lat";
 constexpr uint16_t THINGSBOARD_PORT = 1883U;
@@ -184,9 +186,11 @@ void loop() {
     // Use virtual random sensor
     float temperature = random(20, 40);
     float humidity = random(50, 100);
+    float windspeed = random(5.6, 9.7);
+    float rainfall = random(5.7, 7.4);
 
-    float longitude = long_HCMUT_H6;
-    float latitude = lat_HCMUT_H6;
+    float longitude = long_HCMUT_LTK;
+    float latitude = lat_HCMUT_LTK;
 
     // Uncomment if using DHT20
 
@@ -203,10 +207,14 @@ void loop() {
 
     Serial.println("Sending telemetry. Temperature: " + String(temperature, 1));
     Serial.println("Sending telemetry. Humidity: " + String(humidity, 1));
+    Serial.println("Sending telemetry. Windspeed: " + String(windspeed, 1));
+    Serial.println("Sending telemetry. Rainfall: " + String(rainfall, 1));
     Serial.println();
 
     tb.sendTelemetryData(TEMPERATURE_KEY, temperature);
     tb.sendTelemetryData(HUMIDITY_KEY, humidity);
+    tb.sendTelemetryData(WINDSPEED_KEY, windspeed);
+    tb.sendTelemetryData(RAINFALL_KEY, rainfall);
     tb.sendTelemetryData(LONG_KEY, longitude);
     tb.sendTelemetryData(LAT_KEY, latitude);
     tb.sendAttributeData("rssi", WiFi.RSSI()); // also update wifi signal strength
